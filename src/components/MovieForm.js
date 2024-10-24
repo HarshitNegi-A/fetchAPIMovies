@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classes from "./MovieForm.module.css"
 
-const MovieForm=()=>{
+const MovieForm=(props)=>{
 
     const [title,setTitle]=useState("")
     const [opening,setOpening]=useState("")
@@ -16,6 +16,7 @@ const MovieForm=()=>{
 
         }
         console.log(obj);
+        props.onAddMovie(obj)
         
     }
 

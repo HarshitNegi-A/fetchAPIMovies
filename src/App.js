@@ -15,23 +15,23 @@ function App() {
     setError(null)
     setIsLoading(true)
     try{
-      const response=await fetch('https://swapi.dev/api/films/')
+      const response=await fetch('https://movies-2b420-default-rtdb.firebaseio.com/movies.json')
       if(!response.ok){
         throw new Error('Something Went Wrong')
       }
       const data= await response.json();
-  
-      const transformedMovies=data.results.map((movie)=>{
-        return{
-          id:movie.episode_id,
-          title:movie.title,
-          openingText:movie.opening_crawl,
-          releaseDate:movie.release_date,
-  
-        }
-      })
+
+      const loadedMovies=[];
+      for(const key in data){
+        loadedMovies.push({
+          id:key,
+          title:data[key].title,
+          openingText:data[key].opening_text,
+          releaseDate:data[key].date
+        })
+      }
       
-      setMovies(transformedMovies);
+      setMovies(loadedMovies);
       setRetrying(false);
       clearInterval(retryIntervalRef.current); 
       
@@ -76,11 +76,22 @@ function App() {
   if(isLoading){
     content=<p>Loading...</p>
   }
+  async function  handleAddMovie(movie){
+    const response = await fetch('https://movies-2b420-default-rtdb.firebaseio.com/movies.json',{
+      method:'POST',
+      body : JSON.stringify(movie),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+  });
+  const data=await response.json();
+  console.log(data.name)
+  }
 
   return (
     <React.Fragment>
       <section>
-        <MovieForm />
+        <MovieForm onAddMovie={handleAddMovie}/>
       </section>
       <section>
         <button onClick={handleFetchMovies}>Fetch Movies</button>
