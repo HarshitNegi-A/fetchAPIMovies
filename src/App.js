@@ -77,7 +77,7 @@ function App() {
     content=<p>Loading...</p>
   }
   async function  handleAddMovie(movie){
-    const response = await fetch('https://movies-2b420-default-rtdb.firebaseio.com/movies.json',{
+    const response = await fetch('https://movies-2b420-default-rtdb.firebaseio.com/movies.json/',{
       method:'POST',
       body : JSON.stringify(movie),
       headers:{

@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import classes from './Movie.module.css';
 
 const Movie = (props) => {
-    // async function  handleDeleteButton(movie){
-    //   const response = await fetch('https://movies-2b420-default-rtdb.firebaseio.com/movies.json',{
-    //     method:'POST',
-    //     body : JSON.stringify(movie),
-    //     headers:{
-    //       'Content-Type': 'application/json'
-    //     }
-    // });
-    // const data=await response.json();
-    // console.log(data)
-    // }
-    console.log(props.key)
+    async function  handleDeleteButton(id){
+      await fetch('https://movies-2b420-default-rtdb.firebaseio.com/movies/'+id+'.json',{
+        method:'DELETE',
+        headers:{
+          'Content-Type': 'application/json'
+        }
+    }); 
+
+    
+    }
   
   return ( <>
     <li className={classes.movie}>
       <h2>{props.title}</h2>
       <h3>{props.releaseDate}</h3>
       <p>{props.openingText}</p>
+      <button onClick={()=>handleDeleteButton(props.id)}>Delete Movie</button>
     </li>
-    <button >Delete Movie</button>
+   
     </>
   );
 };
