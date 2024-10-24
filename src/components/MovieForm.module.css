@@ -1,0 +1,18 @@
+.form{
+    text-align: left;
+}
+.form input{
+    width: 500px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 5px;
+}
+.form button{
+    margin-left: 250px;
+}
+.opening{
+    height: 80px;
+}
+.form label{
+    font-weight: bold;
+}
